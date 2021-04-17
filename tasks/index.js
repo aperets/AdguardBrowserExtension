@@ -5,6 +5,7 @@ import edge from './browser-edge';
 import firefoxWebext from './browser-firefox-webext';
 import firefoxAmo from './browser-firefox-amo';
 import api from './sample-extension';
+import youtube from './youtube-blocker-extension';
 import downloadAllFilters from './download-filters';
 import updateLocalScriptRules from './update-local-script-rules';
 import updateLocales from './update-locales';
@@ -32,13 +33,13 @@ export const runTests = gulp.series(tests, done => done());
 export const buildUpdatesFilesStream = gulp.series(buildUpdatesFiles, done => done());
 
 // dev build
-export const buildDev = gulp.series(chromium, firefoxAmo, firefoxWebext, opera, api, done => done());
+export const buildDev = gulp.series(youtube, chromium, firefoxAmo, firefoxWebext, opera, api, done => done());
 
 // beta build
-export const buildBeta = gulp.series(chromium, firefoxWebext, edge, api, updateBuildInfo, clean, done => done());
+export const buildBeta = gulp.series(youtube, chromium, firefoxWebext, edge, api, updateBuildInfo, clean, done => done());
 
 // release build
-export const buildRelease = gulp.series(chromium, opera, firefoxAmo, edge, updateBuildInfo, clean, done => done());
+export const buildRelease = gulp.series(youtube, chromium, opera, firefoxAmo, edge, updateBuildInfo, clean, done => done());
 
 // sample api build
 export const buildSampleApi = gulp.series(api, done => done());
@@ -48,3 +49,6 @@ export const downloadResources = gulp.series(downloadFilters, updatePublicSuffix
 
 // renew locales
 export const rebuildLocales = gulp.series(renewLocales);
+
+// youtube-blocker build
+export const buildYoutube = gulp.series(youtube, done => done());
