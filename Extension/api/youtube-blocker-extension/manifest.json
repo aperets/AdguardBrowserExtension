@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Yutube blocker",
+  "name": "Yutube ads blocker",
   "icons":
    {
       "16": "16.png",
@@ -10,13 +10,13 @@
   "short_name": "Ublocker",
   "author": "Yutube blocker Ltd.",
   "version": "${version}",
-  "description": "Yutube blocker API",
+  "description": "Blocks all ads on Youtube",
   "background": {
     "page": "background.html",
     "persistent": true
   },
   "browser_action": {
-    "default_title": "Yutube blocker",
+    "default_title": "Yutube ads blocker",
     "default_icon": {
                         "16": "16.png",
                         "48": "48.png",
