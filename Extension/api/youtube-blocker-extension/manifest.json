@@ -1,6 +1,12 @@
 {
   "manifest_version": 2,
   "name": "Yutube blocker",
+  "icons":
+   {
+      "16": "16.png",
+      "48": "48.png",
+      "128": "128.png"
+   },
   "short_name": "Ublocker",
   "author": "Yutube blocker Ltd.",
   "version": "${version}",
@@ -11,12 +17,16 @@
   },
   "browser_action": {
     "default_title": "Yutube blocker",
-    "default_popup": "popup.html"
+    "default_icon": {
+                        "16": "16.png",
+                        "48": "48.png",
+                        "128": "128.png"
+		}
   },
   "content_scripts": [
     {
       "all_frames": true,
-      "js": ["scripts/adguard-content.js"],
+      "js": ["adguard/content.js"],
       "matches": [
         "http://*/*",
         "https://*/*"
@@ -26,7 +36,7 @@
     },
     {
       "all_frames": false,
-      "js": ["scripts/adguard-assistant.js"],
+      "js": ["adguard/assistant.js"],
       "matches": [
         "http://*/*",
         "https://*/*"

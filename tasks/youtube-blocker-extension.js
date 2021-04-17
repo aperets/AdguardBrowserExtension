@@ -103,7 +103,7 @@ const paths = {
     assistant: path.join('Extension/lib/content-script/assistant/js/assistant.js'),
     locales: path.join(`${LOCALES_DIR}**/*`),
     sourceManifest: path.join('Extension/api/chrome/manifest.json'),
-    contentScriptsStartFile: path.join('scripts/adguard-content.js'),
+    contentScriptsStartFile: path.join('adguard/content.js'),
     filters: [
         path.join('Extension/filters/chromium/filters_i18n.json'),
         path.join('Extension/filters/chromium/filters.json'),
@@ -115,8 +115,8 @@ const paths = {
 };
 
 const dest = {
-    scripts: path.join(paths.dest, 'scripts'),
-    assistant: path.join(paths.dest, 'scripts', 'assistant'),
+    adguard: path.join(paths.dest, 'adguard'),
+    assistant: path.join(paths.dest, 'adguard', 'assistant'),
     inner: path.join(paths.dest, '**/*'),
     buildDir: path.join(BUILD_DIR, BRANCH),
     manifest: path.join(paths.dest, 'manifest.json'),
@@ -132,20 +132,20 @@ const copyAssistant = () => gulp.src(paths.assistant)
 
 //  copy filters
 const copyFilters = () => gulp.src(paths.filters)
-    .pipe(gulp.dest(dest.scripts));
+    .pipe(gulp.dest(dest.adguard));
 
 // copy redirects sources
 const copyRedirects = () => gulp.src(paths.redirects)
-    .pipe(gulp.dest(dest.scripts));
+    .pipe(gulp.dest(dest.adguard));
 
 const apiConcat = () => gulp.src(API_SCRIPTS)
-    .pipe(concatFiles('youtube-blocker-extension.js'))
-    .pipe(gulp.dest(dest.scripts));
+    .pipe(concatFiles('adguard-api.js'))
+    .pipe(gulp.dest(dest.adguard));
 
 /**
  * Concat scripts from `document_start` and `document_end` params getting from manifest.json
- * Scripts from 'document_start' param concatenates in adguard-content.js script.
- * Scripts from 'document_end' param concatenates in adguard-assistant.js script.
+ * Scripts from 'document_start' param concatenates in content.js script.
+ * Scripts from 'document_end' param concatenates in assistant.js script.
  *
  * @param runAt   'document_start' or 'document_start' param
  * @param srcFileName   name of concatenate file to save
@@ -170,11 +170,11 @@ const concat = (runAt, srcFileName) => {
 
     return gulp.src(files)
         .pipe(concatFiles(srcFileName))
-        .pipe(gulp.dest(dest.scripts));
+        .pipe(gulp.dest(dest.adguard));
 };
 
-const concatStartFiles = () => concat('document_start', 'adguard-content.js');
-const concatEndFiles = () => concat('document_end', 'adguard-assistant.js');
+const concatStartFiles = () => concat('document_start', 'content.js');
+const concatEndFiles = () => concat('document_end', 'assistant.js');
 
 const updateManifest = (done) => {
     const manifest = JSON.parse(fs.readFileSync(dest.manifest));
